@@ -2,27 +2,32 @@
 
 {% block body %}
 
-<div class="one-half column" style="margin-top: 10%">
-{% if is_json %}
+<div class="container">
+    <div class="row">
+        <div class="eleven columns" style="margin-top: 10%">
+            {% if is_json %}
 
-    <p>From: <a href="mailto: {{ msg.from }}"> {{ msg.from }}</a></p>
-    <p>To: <a href="mailto:{{ msg.to }}">{{ msg.to }}</a></p>
-    {% if msg.cc %}
-    <p>cc: {{ msg.cc }}</p>
-    {% endif %}
-    {% if msg.bcc %}
-    <p>bcc: {{ msg.bcc }}</p>
-    {% endif %}
+                <p>From: <a href="mailto: {{ msg.from }}"> {{ msg.from }}</a></p>
+                <p>To: <a href="mailto:{{ msg.to }}">{{ msg.to }}</a></p>
+                {% if msg.cc %}
+                    <p>cc: <a href="mailto: {{ msg.cc }}">{{ msg.cc }}</a></p>
+                {% endif %}
+                {% if msg.bcc %}
+                    <p>bcc: <a href="mailto: {{ msg.bcc }}">{{ msg.bcc }}</a></p>
+                {% endif %}
+                <p>Date: {{ msg.date }}</p>
+                <hr>
 
-    <p>Date: {{ msg.date }}</p>
+                <p><b>Subject: {{ msg.subject }}</b></p>
+                <hr>
 
-    <p><b>Subject: {{ msg.subject }}</b></p>
+                <p>{{ msg.body|safe }}</p>
 
-    <p>{{ msg.body|safe }}</p>
-
-{% else %}
-    {{ msg|safe }}
-{% endif %}
+            {% else %}
+                {{ msg|safe }}
+            {% endif %}
+        </div>
+    </div>
 </div>
 
 {% endblock body %}
