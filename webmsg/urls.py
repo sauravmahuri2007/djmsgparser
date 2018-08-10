@@ -20,6 +20,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     # remove below line once this app is plugged to the main application
-    path('', RedirectView.as_view(pattern_name='upload_msg', permanent=True), name='home_upload_msg'),
+    path('', RedirectView.as_view(pattern_name='upload_msg', permanent=False), name='home_upload_msg'),
     path('msg/', include('parsemsg.urls')),
 ]

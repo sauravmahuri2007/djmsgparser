@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from django.views.generic import View
 
 from .forms import UploadForm
-from webmsg_config import UPLOAD_PATH, MSG_DIR_NAME, MSG_DIR, JSON_FILE_NAME, TEXT_FILE_NAME, PARSE_FORMAT
+from webmsg_config import BASE_DIR, UPLOAD_PATH, MSG_DIR_NAME, MSG_DIR, JSON_FILE_NAME, TEXT_FILE_NAME, PARSE_FORMAT
 
 
 def get_upload_path(file_name):
@@ -66,7 +66,11 @@ def parse_msg_file(file_path):
         rmtree(os.path.join(msg_dir, file_name))
     format = '--' + PARSE_FORMAT
     # 'ExtractMsg.py --use-file-name my_msg_file --json /path/of/msg/file'
-    output = subprocess.check_output(['ExtractMsg.py', '--use-file-name', file_name, format, file_path])
+    try:
+        output = subprocess.check_output(['ExtractMsg.py', '--use-file-name', file_name, format, file_path])
+    except:
+        extract_msg = os.path.join(BASE_DIR, 'venv/bin/ExtractMsg.py')  # make sure that venv is the name of virtualenv
+        output = subprocess.check_output([extract_msg, '--use-file-name', file_name, format, file_path])
     return True
 
 
