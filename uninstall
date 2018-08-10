@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Author: Saurav Kumar
+# Version: 1.0
+
+### djmsgparser unistallation notes ###
+#   1. Remove .djmsgparser directory from User's home.
+#   2. Remote the djmsgparser link created
+
+INSDIR=~/.djmsgparser
+sudo rm -rf $INSDIR
+sudo rm /usr/local/bin/djmsgparser
+echo "---------------------------------------------------------------------------------"
+echo "Successfully Uninstalled djmsgparser from location: $INSDIR"
+echo "---------------------------------------------------------------------------------"

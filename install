@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Author: Saurav Kumar
+# Version: 1.0
+
+### djmsgparser installation notes ###
+#   1. Creating python3 based virtual environment.
+#   2. Installing all the required packages.
+#   3. Running the server (make sure executable 'run.py' file is available)
+
+INSDIR=~/.djmsgparser
+cp -Rp . $INSDIR  # copy all files of current directory to user home install directory
+mkdir -p $INSDIR/uploads  # creating the upload directory
+sudo apt-get install python3-dev virtualenv python-pip  # installing global packages
+virtualenv --python=python3 $INSDIR/venv  # creating virtualenv for python3 compatible
+$INSDIR/venv/bin/pip install https://github.com/mattgwwalker/msg-extractor/zipball/master  # installing msg-extracter
+$INSDIR/venv/bin/pip install -r requirements.txt  # install all required packages inside virtualenv
+ex -sc "1i|#!$INSDIR/venv/bin/python3" -cx $INSDIR/run.py  # inserts a shebang to make the executable
+sudo ln -s $INSDIR/run.py /usr/local/bin/djmsgparser
+
+echo ""
+echo "---------------------------------------------------------------------------------"
+echo "Successfully Installed djmsgparser in location: $INSDIR"
+echo "---------------------------------------------------------------------------------"
+echo "Starting djmsgparser server now..."
+echo 'Quit the server with CONTROL-C.'
+echo "---------------------------------------------------------------------------------"
+echo 'Server can be started at any time by executing following commands in command line:'
+echo "'djmsgparser' or 'djmsgparser <hostname:port>'  eg: djmsgparser localhost:8800"
+echo "---------------------------------------------------------------------------------"
+echo ""
+
+djmsgparser  # executing the shortcut to run the django server
